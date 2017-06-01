@@ -39,26 +39,26 @@ public class Simulation {
     }
 
     public static void main(String[] args) {
-        Network n = new Network();
-        Node n0 = n.createNode(1,1,0);
-        Node n1 = n.createNode(4,1,1);
-        Node n2 = n.createNode(4,4,2);
-        Node n3 = n.createNode(1,4,3);
-        Node n4 = n.createNode(1,6,4);
-        Node n5 = n.createNode(4,6,5);
-        Node n6 = n.createNode(4,6,6);
-        Link l0 = n.createLink(n0,n1,0);
-        Link l1 = n.createLink(n1,n2,2);
-        Link l0rev = n.createLink(n1,n0,1);
-        Link l1rev = n.createLink(n2,n1,3);
-        Link l2 = n.createLink(n2,n3,4);
-        Link l2rev = n.createLink(n3,n2,5);
-        Link l3 = n.createLink(n3,n4,6);
-        Link l3rev = n.createLink(n4,n3,7);
-        Link l4 = n.createLink(n4,n5,8);
-        Link l4rev = n.createLink(n5,n4,9);
-        Link l5 = n.createLink(n5,n6,8);
-        Link l5rev = n.createLink(n6,n5,9);
+        Network network = new Network();
+        Node node0 = network.createNode(1,1,0);
+        Node node1 = network.createNode(4,1,1);
+        Node node2 = network.createNode(4,4,2);
+        Node node3 = network.createNode(1,4,3);
+        Node node4 = network.createNode(1,6,4);
+        Node node5 = network.createNode(4,6,5);
+        Node node6 = network.createNode(4,6,6);
+        Link l0 = network.createLink(node0,node1,0);
+        Link l1 = network.createLink(node1,node2,2);
+        Link l0rev = network.createLink(node1,node0,1);
+        Link l1rev = network.createLink(node2,node1,3);
+        Link l2 = network.createLink(node2,node3,4);
+        Link l2rev = network.createLink(node3,node2,5);
+        Link l3 = network.createLink(node3,node4,6);
+        Link l3rev = network.createLink(node4,node3,7);
+        Link l4 = network.createLink(node4,node5,8);
+        Link l4rev = network.createLink(node5,node4,9);
+        Link l5 = network.createLink(node5,node6,8);
+        Link l5rev = network.createLink(node6,node5,9);
 
         List<Link> route0 = new ArrayList<>();
         route0.add(l0);
@@ -73,8 +73,8 @@ public class Simulation {
         route1.add(l0);
         route1.add(l5);
 
-        Simulation sim = new Simulation(n);
-        sim.add(new Vehicle(n, n1, n2));
+        Simulation sim = new Simulation(network);
+       // sim.add(new Vehicle(n, n1, n2));
         sim.add(new Vehicle(route0.get(0).getFrom().getX(),route0.get(0).getFrom().getY(), route0));
         sim.add(new Vehicle(route1.get(0).getFrom().getX(),route1.get(0).getFrom().getY() - 0.01, route1));
         sim.run();

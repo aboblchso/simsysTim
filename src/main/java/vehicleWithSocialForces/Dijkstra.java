@@ -24,13 +24,8 @@ public class Dijkstra {
     }
 
     public void calculateRoute (){
-
-
         prepareQSet();
-
-
         //  qList.put(nStart, )
-
     }
 
     private void prepareQSet() {
