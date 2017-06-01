@@ -24,6 +24,16 @@ public class Dijkstra {
     }
 
     public void calculateRoute (){
+
+
+        prepareQSet();
+
+
+        //  qList.put(nStart, )
+
+    }
+
+    private void prepareQSet() {
         for (int i=0; i < network.nodes.size(); i++){
             Node node = network.nodes.get(i);
             Integer nodeId = node.getNodeId();
@@ -34,9 +44,6 @@ public class Dijkstra {
             helpList.add(Double.valueOf(predecessorId));
             qList.put(i, helpList);
         }
-
-      //  qList.put(nStart, )
-
     }
 
 }
