@@ -24,6 +24,7 @@ public class Link {
         this.rotatedDy =   dx;
     }
 
+
     public Node getFrom() {
         return from;
     }

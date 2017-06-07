@@ -51,7 +51,7 @@ public class Vehicle {
 
     public Vehicle(Network n, Node nStart, Node nDestination) {
         this.x = nStart.getX();
-        this.y = nDestination.getY();
+        this.y = nStart.getY();
         Dijkstra dijkstra = new Dijkstra(n, nStart, nDestination);
         dijkstra.calculateRoute();
         this.route = dijkstra.getRoute;

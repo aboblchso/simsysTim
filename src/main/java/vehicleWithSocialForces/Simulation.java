@@ -34,8 +34,8 @@ public class Simulation {
     private final Vis vis;
     private List<Vehicle> vehs = new ArrayList<>();
 
-    public Simulation(Network n) {
-         this.vis = new Vis(n);
+    public Simulation(Network network) {
+         this.vis = new Vis(network);
     }
 
     public static void main(String[] args) {
@@ -48,8 +48,8 @@ public class Simulation {
         Node node5 = network.createNode(4,6,5);
         Node node6 = network.createNode(4,6,6);
         Link l0 = network.createLink(node0,node1,0);
-        Link l1 = network.createLink(node1,node2,2);
         Link l0rev = network.createLink(node1,node0,1);
+        Link l1 = network.createLink(node1,node2,2);
         Link l1rev = network.createLink(node2,node1,3);
         Link l2 = network.createLink(node2,node3,4);
         Link l2rev = network.createLink(node3,node2,5);
@@ -57,9 +57,12 @@ public class Simulation {
         Link l3rev = network.createLink(node4,node3,7);
         Link l4 = network.createLink(node4,node5,8);
         Link l4rev = network.createLink(node5,node4,9);
-        Link l5 = network.createLink(node5,node6,8);
-        Link l5rev = network.createLink(node6,node5,9);
+        Link l5 = network.createLink(node5,node6,10);
+        Link l5rev = network.createLink(node6,node5,11);
+        Link l6 = network.createLink(node2,node0,12);
 
+
+        /*
         List<Link> route0 = new ArrayList<>();
         route0.add(l0);
         route0.add(l1);
@@ -72,18 +75,20 @@ public class Simulation {
         route1.add(l0rev);
         route1.add(l0);
         route1.add(l5);
+        */
 
         Simulation sim = new Simulation(network);
-       // sim.add(new Vehicle(n, n1, n2));
-        sim.add(new Vehicle(route0.get(0).getFrom().getX(),route0.get(0).getFrom().getY(), route0));
-        sim.add(new Vehicle(route1.get(0).getFrom().getX(),route1.get(0).getFrom().getY() - 0.01, route1));
+        sim.add(new Vehicle(network, node0, node6));
+        sim.add(new Vehicle(network, node4, node0));
+        sim.add(new Vehicle(network, node1, node5));
+        //sim.add(new Vehicle(route0.get(0).getFrom().getX(),route0.get(0).getFrom().getY(), route0));
+        //sim.add(new Vehicle(route1.get(0).getFrom().getX(),route1.get(0).getFrom().getY() - 0.01, route1));
         sim.run();
 
     }
 
     private void run() {
         double time = 0;
-
         double maxTime = 1000;
 
 

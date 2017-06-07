@@ -15,6 +15,9 @@ public class Network{
     private final Map<Integer, Link> links = new HashMap<Integer, Link>();
     private final List<LinkInfo> linkInfos = new ArrayList<>();
 
+    public Map<Integer, Link> getLinks() {
+        return links;
+    }
 
     public Node createNode (double x, double y, int nodeId){
         Node n = new Node(x, y, nodeId);
