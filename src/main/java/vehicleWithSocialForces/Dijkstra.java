@@ -28,6 +28,7 @@ public class Dijkstra {
 
     public void calculateRoute (){
 
+
         // I should create the corresponding MAP between <Node, MirrorNode>
         // Also I should probably make the MirrorNode Comparable and override
         prepareQSet();
@@ -53,8 +54,8 @@ public class Dijkstra {
     }
 
     private List<Integer> reconstructPath(MirrorNode mirrorNodeDestination) {
-        System.out.println("node " + executedMirrorNodesMap.get(5).getNodeID() + " has predecessor " +
-        executedMirrorNodesMap.get(5).getPredecessorId());
+//        System.out.println("node " + executedMirrorNodesMap.get(5).getNodeID() + " has predecessor " +
+//        executedMirrorNodesMap.get(5).getPredecessorId());
         MirrorNode nodeToGetPredecessor = mirrorNodeDestination;
         List<Integer> mirrorNodePath = new LinkedList<>();
         while (nodeToGetPredecessor != null){

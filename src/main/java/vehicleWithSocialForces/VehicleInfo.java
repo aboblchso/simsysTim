@@ -34,17 +34,21 @@ public class VehicleInfo {
     private final double scale = 100;
     private final int length;
     private final int width;
+    private final boolean isInTheSimulation;
 
-    public VehicleInfo(double x, double y, double phi, double length, double width) {
+    public VehicleInfo(double x, double y, double phi, double length, double width, boolean isInTheSimulation) {
         this.x = (int) (Simulation.SCALE * x);
         this.y = (int) (scale * y);
         this.phi = phi;
         this.length = (int) (scale * length);
         this.width = (int) (scale * width);
-
+        this.isInTheSimulation = isInTheSimulation;
     }
 
     public void draw(PApplet p) {
+
+        if (isInTheSimulation){
+
         p.pushMatrix();
 
         p.translate(x, y);
@@ -63,7 +67,7 @@ public class VehicleInfo {
         p.fill(0, 0, 255);
         p.ellipse(length / 2, width / 2, 10, 10);
         p.popMatrix();
-
+        }
 
     }
 }

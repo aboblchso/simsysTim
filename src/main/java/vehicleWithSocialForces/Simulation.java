@@ -20,19 +20,20 @@ package vehicleWithSocialForces;
  * *********************************************************************** */
 
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by laemmel on 24/04/16.
  */
 public class Simulation {
 
+    public static final double MAX_TIME = 1000;
     public static final double H = 0.1;
     public static final double SCALE = 100.0;
+    private static int numberOfRandomVehicles = 2;
 
     private final Vis vis;
-    private List<Vehicle> vehs = new ArrayList<>();
+    private Map<String, Vehicle> vehs = new HashMap<>();
 
     public Simulation(Network network) {
          this.vis = new Vis(network);
@@ -78,31 +79,52 @@ public class Simulation {
         */
 
         Simulation sim = new Simulation(network);
-        sim.add(new Vehicle(network, node0, node6));
-        sim.add(new Vehicle(network, node4, node0));
-        sim.add(new Vehicle(network, node1, node5));
-        //sim.add(new Vehicle(route0.get(0).getFrom().getX(),route0.get(0).getFrom().getY(), route0));
-        //sim.add(new Vehicle(route1.get(0).getFrom().getX(),route1.get(0).getFrom().getY() - 0.01, route1));
+        sim.add(new Vehicle(network,node0,node1,0,"test1"));
+        sim.add(new Vehicle(network,node0,node1,1,"test2"));
+        //addRandomVehicles(network, sim, numberOfRandomVehicles);
         sim.run();
 
     }
 
+    private static void addRandomVehicles(Network network, Simulation sim, int numberOfRandomVehicles) {
+        for (int i = 0; i<numberOfRandomVehicles; i++){
+            int startNodeId = (int) (Math.random() * network.nodes.size());
+            int finishNodeId = (int) (Math.random() * network.nodes.size());
+            if (startNodeId != finishNodeId){
+                createRandomDeparture(network, sim, startNodeId, finishNodeId, i);
+            }
+        }
+    }
+
+    private static void createRandomDeparture(Network network, Simulation sim, int startNodeId, int finishNodeId, int i) {
+        int startTime = (int) (Math.random() * (MAX_TIME - 990));
+        String vehicleId = "Vehicle_" + startNodeId + "_to_" + finishNodeId + "_at_" + startTime + "_" + i;
+        Node startNode = network.nodes.get(startNodeId);
+        Node finishNode = network.nodes.get(finishNodeId);
+        sim.add(new Vehicle(network, startNode, finishNode, startTime, vehicleId));
+        System.out.println("Random Vehicle " + vehicleId + " is created");
+    }
+
     private void run() {
         double time = 0;
-        double maxTime = 1000;
 
 
-        while (time < maxTime) {
-            for (Vehicle v : this.vehs) {
-                v.update(this.vehs);
+
+        while (time < MAX_TIME) {
+            for (Map.Entry<String, Vehicle> vehicleEntry : vehs.entrySet()) {
+                if (!vehicleEntry.getValue().toBeRemovedAfterFinish){
+                        vehicleEntry.getValue().update(this.vehs, time);
+                } else {
+                    this.remove(vehicleEntry.getValue());
+                }
             }
-            for (Vehicle v : this.vehs) {
-                v.move();
+            for (Map.Entry<String, Vehicle> vehicleEntry : vehs.entrySet()) {
+                vehicleEntry.getValue().move();
             }
             //
             List<VehicleInfo> vInfos = new ArrayList<>();
-            for (Vehicle v : this.vehs) {
-               VehicleInfo vi = new VehicleInfo(v.getX(), v.getY(), v.getPhi(), v.getLength(), v.getWidth());
+            for (Map.Entry<String, Vehicle> vehicleEntry : vehs.entrySet()) {
+               VehicleInfo vi = new VehicleInfo(vehicleEntry.getValue().getX(), vehicleEntry.getValue().getY(), vehicleEntry.getValue().getPhi(), vehicleEntry.getValue().getLength(), vehicleEntry.getValue().getWidth(), vehicleEntry.getValue().isInTheSimulation());
                        vInfos.add(vi);
             }
             this.vis.update(time, vInfos);
@@ -118,6 +140,10 @@ public class Simulation {
     }
 
     private void add(Vehicle v1) {
-        this.vehs.add(v1);
+        this.vehs.put(v1.getId(), v1);
+    }
+
+    private void remove(Vehicle vehicle){
+        this.vehs.remove(vehicle.getId());
     }
 }
