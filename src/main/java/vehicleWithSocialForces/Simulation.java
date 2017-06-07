@@ -79,8 +79,12 @@ public class Simulation {
         */
 
         Simulation sim = new Simulation(network);
-        sim.add(new Vehicle(network,node0,node1,0,"test1"));
-        sim.add(new Vehicle(network,node0,node1,1,"test2"));
+        sim.add(new Vehicle(network,node0,node3,0,"test1"));
+        sim.add(new Vehicle(network,node0,node6,1,"test2"));
+        sim.add(new Vehicle(network,node5,node1,3,"test3"));
+        //sim.add(new Vehicle(network,node0,node3,5,"test4"));
+        sim.add(new Vehicle(network,node4,node3,14,"test5"));
+        //sim.add(new Vehicle(network,node6,node2,10,"test6"));
         //addRandomVehicles(network, sim, numberOfRandomVehicles);
         sim.run();
 
@@ -111,15 +115,20 @@ public class Simulation {
 
 
         while (time < MAX_TIME) {
-            for (Map.Entry<String, Vehicle> vehicleEntry : vehs.entrySet()) {
+            Iterator<Map.Entry<String, Vehicle>> iteratorVehicles = vehs.entrySet().iterator();
+            while (iteratorVehicles.hasNext()) {
+                Map.Entry<String, Vehicle> vehicleEntry = iteratorVehicles.next();
                 if (!vehicleEntry.getValue().toBeRemovedAfterFinish){
                         vehicleEntry.getValue().update(this.vehs, time);
                 } else {
                     this.remove(vehicleEntry.getValue());
                 }
             }
-            for (Map.Entry<String, Vehicle> vehicleEntry : vehs.entrySet()) {
-                vehicleEntry.getValue().move();
+
+            Iterator<Map.Entry<String, Vehicle>> iteratorVehiclesMove = vehs.entrySet().iterator();
+            while (iteratorVehiclesMove.hasNext()) {
+                Map.Entry<String, Vehicle> vehicleEntryMove = iteratorVehiclesMove.next();
+                vehicleEntryMove.getValue().move();
             }
             //
             List<VehicleInfo> vInfos = new ArrayList<>();

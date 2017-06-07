@@ -174,17 +174,17 @@ public class Vehicle {
 
         this.x = this.x + Simulation.H * this.vx;
         this.y = this.y + Simulation.H * this.vy;
-        LOG.info("The current position of the vehicle" + this.getId() +
+        LOG.info("The current position of the vehicle " + this.getId() +
                     " is " + this.getX() + ", " + this.getY());
 
         Link currentLink = this.route.get(routeIndex);
         if (currentLink.hasVehicleReachedTheEndOfTheLink(this)) {
             if (currentLink != route.get(route.size()-1) && routeIndex + 1 < route.size()){
-                LOG.info("The vehicle " + this + "has crossed the end of the link");
+                LOG.info("The vehicle " + this.getId() + "has crossed the end of the link");
                 routeIndex++;
-                LOG.info("The vehicle " + this + "allocated to the start of the next link");
+                LOG.info("The vehicle " + this.getId() + "allocated to the start of the next link");
                 } else {
-                    LOG.info("The vehicle " + this + " has reached its destination");
+                    LOG.info("The vehicle " + this.getId() + " has reached its destination");
                     isInTheSimulation = false;
                     toBeRemovedAfterFinish = true;
             }
