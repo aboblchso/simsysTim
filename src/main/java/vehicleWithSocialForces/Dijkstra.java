@@ -44,7 +44,7 @@ public class Dijkstra {
         //  qList.put(nStart, )
     }
 
-    private void calculateRouteFromListOfNodes(List<Integer> mirrorNodePath) {
+    public void calculateRouteFromListOfNodes(List<Integer> mirrorNodePath) {
         for (int i = 0; i < mirrorNodePath.size() - 1; i++){
             List<Link> allLinks = new LinkedList<>();
             getAllLinksOfTheNetwork(allLinks);
@@ -53,7 +53,7 @@ public class Dijkstra {
         }
     }
 
-    private List<Integer> reconstructPath(MirrorNode mirrorNodeDestination) {
+    public List<Integer> reconstructPath(MirrorNode mirrorNodeDestination) {
 //        System.out.println("node " + executedMirrorNodesMap.get(5).getNodeID() + " has predecessor " +
 //        executedMirrorNodesMap.get(5).getPredecessorId());
         MirrorNode nodeToGetPredecessor = mirrorNodeDestination;
@@ -68,7 +68,7 @@ public class Dijkstra {
         return mirrorNodePath;
     }
 
-    private MirrorNode findNodeWithTheSmallestCostSoFar(Map<Integer, MirrorNode> qMap) {
+    public MirrorNode findNodeWithTheSmallestCostSoFar(Map<Integer, MirrorNode> qMap) {
         Double temporaryMinNodeCost = 1.0 / 0.0;
         Map<Integer, Double> mapOfCosts = new HashMap<>();
         MirrorNode nodeWithTheSmallestCost = null;
@@ -88,7 +88,7 @@ public class Dijkstra {
         return nodeWithTheSmallestCost;
     }
 
-    private void expandGraph(MirrorNode currentNode) {
+    public void expandGraph(MirrorNode currentNode) {
         List<Link> allLinks = new LinkedList<>();
         List<Link> linksToExploreInThatStep = new LinkedList<>();
         getAllLinksOfTheNetwork(allLinks);
@@ -119,7 +119,7 @@ public class Dijkstra {
 
     }
 
-    private void collectLinksFromNode(MirrorNode currentNode, List<Link> allLinks, List<Link> linksToExploreInThatStep) {
+    public void collectLinksFromNode(MirrorNode currentNode, List<Link> allLinks, List<Link> linksToExploreInThatStep) {
         for (Link link : allLinks){
             if (link.getFrom().getNodeId() == currentNode.getNodeID()){
                 linksToExploreInThatStep.add(link);
@@ -128,7 +128,7 @@ public class Dijkstra {
         }
     }
 
-    private Link returnLinkByNodesIds(Integer startNodeId, Integer endNodeId, List<Link> allLinks) {
+    public Link returnLinkByNodesIds(Integer startNodeId, Integer endNodeId, List<Link> allLinks) {
         for (Link link : allLinks){
             if (link.getFrom().getNodeId() == startNodeId && link.getTo().getNodeId() == endNodeId){
                 return link;
@@ -138,14 +138,14 @@ public class Dijkstra {
         return null;
     }
 
-    private void getAllLinksOfTheNetwork(List<Link> allLinks) {
+    public void getAllLinksOfTheNetwork(List<Link> allLinks) {
         for (Map.Entry<Integer, Link> links : network.getLinks().entrySet()){
             allLinks.add(links.getValue());
         }
     }
 
 
-    private void prepareQSet() {
+    public void prepareQSet() {
         for (int i=0; i < network.nodes.size(); i++){
             Node node = network.nodes.get(i);
             Integer nodeId = node.getNodeId();

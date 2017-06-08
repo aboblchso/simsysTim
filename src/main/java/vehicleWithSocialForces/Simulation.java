@@ -82,9 +82,9 @@ public class Simulation {
         sim.add(new Vehicle(network,node0,node3,0,"test1"));
         sim.add(new Vehicle(network,node0,node6,1,"test2"));
         sim.add(new Vehicle(network,node5,node1,3,"test3"));
-        //sim.add(new Vehicle(network,node0,node3,5,"test4"));
+       // sim.add(new Vehicle(network,node0,node3,5,"test4"));
         sim.add(new Vehicle(network,node4,node3,14,"test5"));
-        //sim.add(new Vehicle(network,node6,node2,10,"test6"));
+      //  sim.add(new Vehicle(network,node6,node2,10,"test6"));
         //addRandomVehicles(network, sim, numberOfRandomVehicles);
         sim.run();
 
