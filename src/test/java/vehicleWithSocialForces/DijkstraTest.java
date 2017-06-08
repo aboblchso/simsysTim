@@ -6,6 +6,7 @@ import sun.nio.ch.Net;
 import java.util.LinkedList;
 import java.util.List;
 
+import static org.hamcrest.core.IsCollectionContaining.hasItems;
 import static org.junit.Assert.*;
 
 /**
@@ -45,6 +46,9 @@ public class DijkstraTest {
         Network network = new Network();
         network.createLink(network.createNode(0,0,0), network.createNode(1,1,1),1);
         getAllLinksOfTheNetwork(allLinks);
+
+        //assertThat(allLinks, hasItems());
+
     }
 
     @Test

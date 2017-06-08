@@ -37,6 +37,7 @@ public class Vehicle {
 
     private static final double MAX_SPEED = 1;
 
+
     private double vx = 0;
     private double vy = 0;
 
@@ -50,7 +51,7 @@ public class Vehicle {
     private double x;
     private double y;
 
-    private int startTime;
+    private double startTime;
 
 
     private boolean isInTheSimulation = false;
@@ -59,9 +60,9 @@ public class Vehicle {
     private double k = 240000;
     boolean toBeRemovedAfterFinish = false;
 
-    public Vehicle(Network n, Node nStart, Node nDestination, int startTime, String vehicleId) {
-        this.x = nStart.getX();
-        this.y = nStart.getY();
+    public Vehicle(Network n, Node nStart, Node nDestination, double startTime, String vehicleId) {
+        this.x = nStart.getX() + Math.random() * 0.5;
+        this.y = nStart.getY() + Math.random() * 0.5;
         Dijkstra dijkstra = new Dijkstra(n, nStart, nDestination);
         dijkstra.calculateRoute();
         this.route = dijkstra.getRoute;
@@ -82,7 +83,7 @@ public class Vehicle {
         return radius;
     }
 
-    private double radius = 0.25 + 0.1 * Math.random();
+    private double radius = 0.01 + 0.005 * Math.random();
 
     private List<Link> route;
     int routeIndex;
@@ -114,7 +115,7 @@ public class Vehicle {
                 double vx0 = dx * MAX_SPEED;
                 LOG.info("The current VX of the vehicle " + this.getId() + " is = " + this.vx);
                 double vy0 = dy * MAX_SPEED;
-                LOG.info("The current VY of the vehicle is = " + this.vy);
+                LOG.info("The current VY of the vehicle " + this.getId() + " is = " + this.vy);
                 this.phi = Math.atan2(vy, vx);
 
                 f1x = weight * ((vx0 - vx)/tau);
@@ -158,16 +159,32 @@ public class Vehicle {
                         f4y = f4y + k * g * ((this.radius + vehicleEntry.getValue().radius) - distanceIJ) * deltaVTY * nIJXNormalized;
                     }
                 }
-
+/*
+                double fx = f1x + f3x + f4x;
+                double fy = f1y + f3y + f4y;
+                */
                 double fx = f1x + f2x + f3x + f4x;
                 double fy = f1y + f2y + f3y + f4y;
+
+
 
                 double ax = fx / weight;
                 double ay = fy / weight;
 
                 this.vx = this.vx + ax * Simulation.H;
+                if (vx > 2){
+                    vx=2;
+                }
+                else if (vx < -2){
+                    vx = -2;
+                }
                 this.vy = this.vy + ay * Simulation.H;
-
+                if (vy > 2){
+                    vy=2;
+                }
+                else if (vy < -2){
+                    vy = -2;
+                }
     }
 
     public void move() {
@@ -220,5 +237,12 @@ public class Vehicle {
 
     public void setId(String id) {
         this.id = id;
+    }
+    public double getVx() {
+        return vx;
+    }
+
+    public double getVy() {
+        return vy;
     }
 }

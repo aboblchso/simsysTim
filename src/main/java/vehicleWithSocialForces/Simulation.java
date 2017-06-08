@@ -30,7 +30,7 @@ public class Simulation {
     public static final double MAX_TIME = 1000;
     public static final double H = 0.1;
     public static final double SCALE = 100.0;
-    private static int numberOfRandomVehicles = 2;
+    private static int numberOfRandomVehicles = 1;
 
     private final Vis vis;
     private Map<String, Vehicle> vehs = new HashMap<>();
@@ -43,11 +43,11 @@ public class Simulation {
         Network network = new Network();
         Node node0 = network.createNode(1,1,0);
         Node node1 = network.createNode(4,1,1);
-        Node node2 = network.createNode(4,4,2);
-        Node node3 = network.createNode(1,4,3);
-        Node node4 = network.createNode(1,6,4);
-        Node node5 = network.createNode(4,6,5);
-        Node node6 = network.createNode(4,6,6);
+        Node node2 = network.createNode(4,3,2);
+        Node node3 = network.createNode(1,3,3);
+        Node node4 = network.createNode(1,5,4);
+        Node node5 = network.createNode(4,5,5);
+        //Node node6 = network.createNode(4,5,6);
         Link l0 = network.createLink(node0,node1,0);
         Link l0rev = network.createLink(node1,node0,1);
         Link l1 = network.createLink(node1,node2,2);
@@ -58,9 +58,7 @@ public class Simulation {
         Link l3rev = network.createLink(node4,node3,7);
         Link l4 = network.createLink(node4,node5,8);
         Link l4rev = network.createLink(node5,node4,9);
-        Link l5 = network.createLink(node5,node6,10);
-        Link l5rev = network.createLink(node6,node5,11);
-        Link l6 = network.createLink(node2,node0,12);
+        Link l5 = network.createLink(node2,node0,12);
 
 
         /*
@@ -77,17 +75,17 @@ public class Simulation {
         route1.add(l0);
         route1.add(l5);
         */
-
         Simulation sim = new Simulation(network);
+/*
         sim.add(new Vehicle(network,node0,node3,0,"test1"));
-        sim.add(new Vehicle(network,node0,node6,1,"test2"));
+        sim.add(new Vehicle(network,node0,node5,0,"test2"));
         sim.add(new Vehicle(network,node5,node1,3,"test3"));
-       // sim.add(new Vehicle(network,node0,node3,5,"test4"));
-        sim.add(new Vehicle(network,node4,node3,14,"test5"));
-      //  sim.add(new Vehicle(network,node6,node2,10,"test6"));
-        //addRandomVehicles(network, sim, numberOfRandomVehicles);
+        sim.add(new Vehicle(network,node0,node3,5,"test4"));
+        sim.add(new Vehicle(network,node4,node3,1,"test5"));
+        sim.add(new Vehicle(network,node5,node1,0,"test6"));
+*/
+        addRandomVehicles(network, sim, numberOfRandomVehicles);
         sim.run();
-
     }
 
     private static void addRandomVehicles(Network network, Simulation sim, int numberOfRandomVehicles) {
@@ -101,7 +99,7 @@ public class Simulation {
     }
 
     private static void createRandomDeparture(Network network, Simulation sim, int startNodeId, int finishNodeId, int i) {
-        int startTime = (int) (Math.random() * (MAX_TIME - 990));
+        double startTime = (Math.random() * (MAX_TIME - 995));
         String vehicleId = "Vehicle_" + startNodeId + "_to_" + finishNodeId + "_at_" + startTime + "_" + i;
         Node startNode = network.nodes.get(startNodeId);
         Node finishNode = network.nodes.get(finishNodeId);
@@ -121,7 +119,8 @@ public class Simulation {
                 if (!vehicleEntry.getValue().toBeRemovedAfterFinish){
                         vehicleEntry.getValue().update(this.vehs, time);
                 } else {
-                    this.remove(vehicleEntry.getValue());
+                    iteratorVehicles.remove();
+                    //this.remove(vehicleEntry.getValue());
                 }
             }
 
@@ -133,7 +132,11 @@ public class Simulation {
             //
             List<VehicleInfo> vInfos = new ArrayList<>();
             for (Map.Entry<String, Vehicle> vehicleEntry : vehs.entrySet()) {
-               VehicleInfo vi = new VehicleInfo(vehicleEntry.getValue().getX(), vehicleEntry.getValue().getY(), vehicleEntry.getValue().getPhi(), vehicleEntry.getValue().getLength(), vehicleEntry.getValue().getWidth(), vehicleEntry.getValue().isInTheSimulation());
+               VehicleInfo vi = new VehicleInfo(vehicleEntry.getValue().getX(), vehicleEntry.getValue().getY(),
+                       vehicleEntry.getValue().getPhi(), vehicleEntry.getValue().getLength(),
+                       vehicleEntry.getValue().getWidth(), vehicleEntry.getValue().isInTheSimulation(),
+                       vehicleEntry.getValue().getVx(), vehicleEntry.getValue().getVy(),
+                       vehicleEntry.getValue().getRadius());
                        vInfos.add(vi);
             }
             this.vis.update(time, vInfos);
