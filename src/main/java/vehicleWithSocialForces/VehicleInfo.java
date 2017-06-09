@@ -31,7 +31,6 @@ public class VehicleInfo {
     private final int y;
     private final double phi;
 
-    private final double scale = 100;
     private final int length;
     private final int width;
     private final boolean isInTheSimulation;
@@ -57,31 +56,17 @@ public class VehicleInfo {
     public void draw(PApplet p) {
 
         if (isInTheSimulation){
-        p.ellipse(x, y, (float) radius * 10, (float) radius * 10);
 
-        if (momentSpeed < 0.2) {
-            p.fill(255, 64, 64, 200);
-        } else if (momentSpeed < 0.9) {
-            p.fill(255, 214, 3, 200);
-        } else {
-            p.fill(64, 255, 64, 200);
-        }
-        /*
-        p.pushMatrix();
+            p.ellipse(x, y, (float) (radius * Simulation.SCALE), (float) (radius * Simulation.SCALE));
 
-        p.translate(x, y);
 
-        p.rotate((float) (phi));
-//        p.stroke(255,0,0);
-        p.rect(-length / 2, -width / 2, length, width);
-
-        p.ellipseMode(PConstants.CENTER);
-        p.fill(255, 0, 0);
-        p.ellipse(length / 2, -width / 2, 10, 10);
-        p.fill(0, 0, 255);
-        p.ellipse(length / 2, width / 2, 10, 10);
-        p.popMatrix();
-        */
+            if (momentSpeed < 0.2) {
+                p.fill(255, 64, 64, 200);
+            } else if (momentSpeed < 0.9) {
+                p.fill(255, 214, 3, 200);
+            } else {
+                p.fill(64, 255, 64, 200);
+            }
         }
 
     }

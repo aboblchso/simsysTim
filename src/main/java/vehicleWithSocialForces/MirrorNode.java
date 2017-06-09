@@ -4,17 +4,17 @@ package vehicleWithSocialForces;
  * Created by volot on 01.06.2017.
  */
 public class MirrorNode {
-    private Integer nodeID;
+    private String nodeID;
     private double nodeCost;
-    private Integer predecessorId;
+    private String predecessorId;
 
-    public MirrorNode(Integer nodeId, double nodeCost, Integer predecessorId) {
+    public MirrorNode(String nodeId, double nodeCost, String predecessorId) {
         this.nodeID = nodeId;
         this.nodeCost = nodeCost;
         this.predecessorId = predecessorId;
     }
 
-    public void setNodeID(Integer nodeID) {
+    public void setNodeID(String nodeID) {
         this.nodeID = nodeID;
     }
 
@@ -22,11 +22,11 @@ public class MirrorNode {
         this.nodeCost = nodeCost;
     }
 
-    public void setPredecessorId(Integer predecessorId) {
+    public void setPredecessorId(String predecessorId) {
         this.predecessorId = predecessorId;
     }
 
-    public Integer getNodeID() {
+    public String getNodeID() {
         return nodeID;
     }
 
@@ -34,7 +34,7 @@ public class MirrorNode {
         return nodeCost;
     }
 
-    public Integer getPredecessorId() {
+    public String getPredecessorId() {
         return predecessorId;
     }
 }

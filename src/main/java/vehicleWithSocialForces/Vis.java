@@ -34,8 +34,8 @@ public class Vis extends PApplet {
 
     private List<VehicleInfo> vehs = new ArrayList<>();
 
-    private static final int WIDTH = 800;
-    private static final int HEIGHT = 600;
+    private static final int WIDTH = 1080;
+    private static final int HEIGHT = 1080;
 
     private int x = 0;
     private int y = 0;
@@ -63,7 +63,7 @@ public class Vis extends PApplet {
         fr.setVisible(true);
 
         size(WIDTH, HEIGHT);
-        background(255);
+        background(0,0,0);
 
     }
 
@@ -77,6 +77,8 @@ public class Vis extends PApplet {
                 v.draw(this);
             }
         }
+        saveFrame("output/ped-######.png");
+
     }
 
     public void update(double time, List<VehicleInfo> vehs) {

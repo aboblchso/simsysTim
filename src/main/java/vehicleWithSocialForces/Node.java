@@ -12,12 +12,12 @@ public class Node {
 
     private final double x;
     private final double y;
-    private final int nodeId;
+    private final String nodeId;
 
     private final List<Link> outLinks = new LinkedList<Link>();
     private final List<Link> inLinks = new LinkedList<Link>();
 
-    public Node(double x, double y, int nodeId) {
+    public Node(double x, double y, String nodeId) {
         this.x = x;
         this.y = y;
         this.nodeId = nodeId;
@@ -39,7 +39,7 @@ public class Node {
     }
 
 
-    public int getNodeId() {
+    public String getNodeId() {
         return nodeId;
     }
 }

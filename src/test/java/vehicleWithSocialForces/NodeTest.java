@@ -18,9 +18,9 @@ public class NodeTest {
 
     @Test
     public void getX() throws Exception {
-        Node node = new Node(0.002,500,1);
-        assertEquals(0, node.getX(),0.01);
+
     }
+
 
     @Test
     public void getY() throws Exception {

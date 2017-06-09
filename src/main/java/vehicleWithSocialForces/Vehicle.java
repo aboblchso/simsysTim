@@ -25,9 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-/**
- * Created by laemmel on 18/04/16.
- */
+
 public class Vehicle {
 
     Logger LOG = Logger.getLogger(String.valueOf(Vehicle.class));
@@ -43,7 +41,7 @@ public class Vehicle {
 
     private double length = 0.4;
     private double width = 0.2;
-    private double weight = 90;
+    private double weight = 20;
     private double A = 2000;
     private double B = 0.08;
     double f1x, f2x, f3x, f4x, f1y, f2y, f3y, f4y;

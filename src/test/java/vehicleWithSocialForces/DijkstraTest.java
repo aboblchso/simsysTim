@@ -43,11 +43,7 @@ public class DijkstraTest {
 
     @Test
     public void getAllLinksOfTheNetwork(List<Link> allLinks) throws Exception {
-        Network network = new Network();
-        network.createLink(network.createNode(0,0,0), network.createNode(1,1,1),1);
-        getAllLinksOfTheNetwork(allLinks);
 
-        //assertThat(allLinks, hasItems());
 
     }
 
