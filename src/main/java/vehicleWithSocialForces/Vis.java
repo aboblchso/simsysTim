@@ -26,9 +26,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by laemmel on 17/04/16.
- */
+
 public class Vis extends PApplet {
 
 
@@ -69,7 +67,7 @@ public class Vis extends PApplet {
 
     @Override
     public void draw() {
-        background(255); // eraser
+        background(0,0,0); // eraser
         n.draw(this);
 
         synchronized (this.vehs) {

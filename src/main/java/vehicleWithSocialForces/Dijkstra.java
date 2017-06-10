@@ -48,8 +48,15 @@ public class Dijkstra {
         for (int i = 0; i < mirrorNodePath.size() - 1; i++){
             List<Link> allLinks = new LinkedList<>();
             getAllLinksOfTheNetwork(allLinks);
-            getRoute.add(returnLinkByNodesIds(accordanceMap.get(mirrorNodePath.get(i)), accordanceMap.get(mirrorNodePath.get(i+1)), allLinks));
-            System.out.println("added link to the route: " + returnLinkByNodesIds(accordanceMap.get(mirrorNodePath.get(i)), accordanceMap.get(mirrorNodePath.get(i+1)), allLinks).getLinkId());
+            Link link = returnLinkByNodesIds(accordanceMap.get(mirrorNodePath.get(i)),
+                    accordanceMap.get(mirrorNodePath.get(i + 1)), allLinks);
+            double oldWeight = link.getWeight();
+            Random random = new Random();
+            link.setWeight(oldWeight + (0.002*(random.nextBoolean() ? 1 : -1)));
+            getRoute.add(link);
+            System.out.println("added link to the route: " +
+                    returnLinkByNodesIds(accordanceMap.get(mirrorNodePath.get(i)),
+                            accordanceMap.get(mirrorNodePath.get(i+1)), allLinks).getLinkId());
         }
     }
 

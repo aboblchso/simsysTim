@@ -1,31 +1,9 @@
 package vehicleWithSocialForces;
-/* *********************************************************************** *
- * project: simsocsys
- *
- *                                                                         *
- * *********************************************************************** *
- *                                                                         *
- * copyright       : (C) 2016 by the members listed in the COPYING,        *
- *                   LICENSE and WARRANTY file.                            *
- * email           : gregor dot laemmel at gmail dot org                                *
- *                                                                         *
- * *********************************************************************** *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *   See also COPYING, LICENSE and WARRANTY file                           *
- *                                                                         *
- * *********************************************************************** */
 
 
-import java.security.SecureRandom;
 import java.util.*;
 
-/**
- * Created by laemmel on 24/04/16.
- */
+
 public class Simulation {
 
     public static final double MAX_TIME = 1000;
@@ -38,7 +16,7 @@ public class Simulation {
     public static List<Node> listOfNodes = new ArrayList<>();
     public static List<String> listOfNodesIds = new ArrayList<>();
     public static List<Link> listOfLinks = new ArrayList<>();
-    private static int numberOfRandomVehicles = 10;
+    private static int numberOfRandomVehicles = 10000;
 
     private final Vis vis;
     private Map<String, Vehicle> vehs = new HashMap<>();
@@ -142,14 +120,20 @@ public class Simulation {
             String startNodeId = listOfNodesIds.get((int) (Math.random() * listOfNodesIds.size()));
             String finishNodeId = listOfNodesIds.get((int) (Math.random() * listOfNodesIds.size()));
             System.out.println("trying to create the route from the node " + startNodeId + " to the node " + finishNodeId);
-            if (!startNodeId.equals(finishNodeId)){
-                createRandomDeparture(network, sim, startNodeId, finishNodeId, i);
+            if (!startNodeId.equals(finishNodeId) &&
+                    network.nodes.get(startNodeId).getX() <= STARTING_POINT_OF_THE_GRID + (STEP_OF_THE_GRID * (NUMBER_OF_COLUMNS / 2)) &&
+                    network.nodes.get(startNodeId).getY() <= STARTING_POINT_OF_THE_GRID + (STEP_OF_THE_GRID * (NUMBER_OF_COLUMNS / 2)) &&
+                    network.nodes.get(finishNodeId).getX() >= STARTING_POINT_OF_THE_GRID + (STEP_OF_THE_GRID * (NUMBER_OF_COLUMNS / 2)) &&
+                    network.nodes.get(finishNodeId).getY() >= STARTING_POINT_OF_THE_GRID + (STEP_OF_THE_GRID * (NUMBER_OF_COLUMNS / 2))){
+
+                createRandomDeparture(network, sim, startNodeId, finishNodeId, i * (int) (Math.random()*20000000));
             }
+
         }
     }
 
     private static void createRandomDeparture(Network network, Simulation sim, String startNodeId, String finishNodeId, int i) {
-        double startTime = (Math.random() * (MAX_TIME - 995));
+        double startTime = (Math.random() * (MAX_TIME - 999));
         String vehicleId = "Vehicle_" + startNodeId + "_to_" + finishNodeId + "_at_" + startTime + "_" + (int) Math.random()*10;
         Node startNode = network.nodes.get(startNodeId);
         Node finishNode = network.nodes.get(finishNodeId);

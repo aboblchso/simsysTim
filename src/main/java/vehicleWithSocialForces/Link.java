@@ -9,7 +9,8 @@ public class Link {
     private Node from;
     private Node to;
     private final int linkId;
-    private final double weight;
+
+    private double weight;
     double rotatedDx;
     double rotatedDy;
 
@@ -87,4 +88,8 @@ public class Link {
     }
 
 */
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
 }

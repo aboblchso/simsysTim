@@ -11,7 +11,7 @@ import java.util.Map;
  * Created by volot on 28.04.2017.
  */
 public class Network{
-    final Map<String, Node> nodes = new HashMap<String, Node>();
+    public final Map<String, Node> nodes = new HashMap<String, Node>();
     public final List<Node> nodesList = new ArrayList<>();
     private final Map<Integer, Link> links = new HashMap<Integer, Link>();
     private final List<LinkInfo> linkInfoArrayList = new ArrayList<>();
@@ -46,6 +46,7 @@ public class Network{
 
     public void draw (PApplet p){
         for (LinkInfo linkInfo : this.linkInfoArrayList){
+            p.stroke(255);
             p.line(linkInfo.x0, linkInfo.y0, linkInfo.x1, linkInfo.y1);
         }
        /*
